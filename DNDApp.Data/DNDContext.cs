@@ -1,13 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DNDApp.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DNDApp.Data
 {
-    class AppContext : DbContext
+    public class DNDContext : DbContext
     {
-        public AppContext(DbContextOptions options) : base(options)
+        public DNDContext(DbContextOptions options) : base(options)
         {
         }
 
         //Register DB Models here
+        public DbSet<PlayerEntity> Players { get; set; } 
+        public DbSet<CampaignEntity> Campaigns { get; set; }
+
     }
 }

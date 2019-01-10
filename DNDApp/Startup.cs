@@ -1,4 +1,6 @@
-﻿using DNDApp.Data;
+﻿using DNDApp.Common.Interfaces;
+using DNDApp.Data;
+using DNDApp.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +35,8 @@ namespace DNDApp
                 options.UseSqlServer(Configuration.GetConnectionString("DNDAppDatabase")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IRepository, Repository>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "DNDApp API", Version = "v1" });

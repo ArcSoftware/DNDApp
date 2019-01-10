@@ -1,15 +1,26 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using DNDApp.Common.Interfaces;
 
 namespace DNDApp.Data.Repository
 {
-    public abstract class Repository : IRepository
+    public class Repository : IRepository
     {
-        public IEnumerable GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
+        private readonly DNDContext context; 
+        public Repository(DNDContext dndContext)
         {
-            throw new NotImplementedException();
+            context = dndContext;
+        }
+
+        public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
+        {
+            IQueryable<T> query = context.Set<T>();
+
+            var results = query.Where(predicate);
+
+            return results;
         }
 
         public void Add<T>(T entity) where T : class
