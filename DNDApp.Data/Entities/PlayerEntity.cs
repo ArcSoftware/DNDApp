@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DNDApp.Data.Entities
 {
     public class PlayerEntity
     {
-        public int Id { get; set; }
+        [Key]
+        public int PlayerId { get; set; }
         public string PlayerName { get; set; }
     }
 }

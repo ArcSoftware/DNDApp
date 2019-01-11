@@ -8,15 +8,15 @@ namespace DNDApp.Data.Repository
 {
     public class Repository : IRepository
     {
-        private readonly DNDContext context; 
+        private readonly DNDContext _context; 
         public Repository(DNDContext dndContext)
         {
-            context = dndContext;
+            _context = dndContext;
         }
 
         public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
         {
-            IQueryable<T> query = context.Set<T>();
+            IQueryable<T> query = _context.Set<T>();
 
             var results = query.Where(predicate);
 

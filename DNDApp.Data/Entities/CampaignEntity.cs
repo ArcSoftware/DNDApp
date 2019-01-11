@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DNDApp.Data.Entities
 {
     public class CampaignEntity
     {
-        public int Id { get; set; }
+        [Key]
+        public int CampaignId { get; set; }
         public string CampaignName { get; set; }
     }
 }

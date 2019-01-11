@@ -10,8 +10,8 @@ namespace DNDApp.Data
         }
 
         //Register DB Models here
-        public DbSet<PlayerEntity> Players { get; set; } 
-        public DbSet<CampaignEntity> Campaigns { get; set; }
+        public DbSet<PlayerEntity> Player { get; set; } 
+        public DbSet<CampaignEntity> Campaign { get; set; }
 
     }
 }
