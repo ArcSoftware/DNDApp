@@ -19,8 +19,4 @@
     <ProjectReference Include="..\DNDApp.Data\DNDApp.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Processors\" />
-  </ItemGroup>
-
 </Project>

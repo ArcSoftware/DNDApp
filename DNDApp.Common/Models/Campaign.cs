@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DNDApp.Common.Models
 {
@@ -10,5 +8,6 @@ namespace DNDApp.Common.Models
         {
         }
 
+        public IEnumerable<Player> CampaignPlayers { get; set; }
     }
 }

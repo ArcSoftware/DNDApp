@@ -1,6 +1,7 @@
 ﻿using DNDApp.Common.Interfaces;
 using DNDApp.Data;
 using DNDApp.Data.Repository;
+using DNDApp.Processors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,7 @@ namespace DNDApp
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IProcessorFactory, ProcessorFactory>();
 
             services.AddSwaggerGen(c =>
             {

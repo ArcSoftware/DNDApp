@@ -2,15 +2,13 @@
 
 namespace DNDApp.Common.Models
 {
-    public class Player
+    public class Player : DNDObjectBase
     {
-        public Player(string name)
+        public Player()
         {
-            Name = name;
         }
 
-        public string Name;
-
-        public IEnumerable<Campaign> campaigns; 
+        public IEnumerable<Campaign> PlayerCampaigns { get; set; }
+//        public IEnumerable<Charactors> Charactors { get; set; }
     }
 }

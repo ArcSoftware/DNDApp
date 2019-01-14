@@ -14,6 +14,11 @@ namespace DNDApp.Data.Repository
             _context = dndContext;
         }
 
+        public T GetItem<T>(Expression<Func<T, bool>> predicate = null) where T : class
+        {
+            return GetItems(predicate).FirstOrDefault();
+        }
+
         public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             IQueryable<T> query = _context.Set<T>();
@@ -23,7 +28,7 @@ namespace DNDApp.Data.Repository
             return results;
         }
 
-        public void Add<T>(T entity) where T : class
+        public void Create<T>(T entity) where T : class
         {
             throw new NotImplementedException();
         }

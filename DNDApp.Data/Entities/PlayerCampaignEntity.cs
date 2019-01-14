@@ -2,10 +2,10 @@
 
 namespace DNDApp.Data.Entities
 {
-    public class PlayerEntity
+    public class PlayerCampaignEntity
     {
         [Key]
         public int PlayerId { get; set; }
-        public string PlayerName { get; set; }
+        public int CampaignId { get; set; }
     }
 }
