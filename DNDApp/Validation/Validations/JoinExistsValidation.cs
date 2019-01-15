@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DNDApp.Common.Enums;
 using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
@@ -19,7 +20,8 @@ namespace DNDApp.Validation.Validations
         {
             if (_repo.GetItem<TModelType>(m => m.Id == request.Item.Id)?.Id == null)
             {
-                request.AddValidationErrorMessage($"Object not found by id of type {typeof(TModelType)}");
+                request.AddValidationMessage($"Object not found by id of type {typeof(TModelType)}",
+                    ProcessingMessageType.ValidationError);
             }
         }
     }

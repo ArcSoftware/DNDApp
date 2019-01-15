@@ -4,6 +4,7 @@ using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
 using DNDApp.Data.Entities;
+using DNDApp.Validation.Validations;
 
 namespace DNDApp.Validation.Validators
 {
@@ -16,13 +17,13 @@ namespace DNDApp.Validation.Validators
             _repo = repo;
             ValidationSequence = new ValidationBase<PlayerEntity>[]
             {
-                //Validations here
+                new PlayerNullIdValidation<PlayerEntity>()
             };
         }
 
-        public Task<ProcessingRequest<PlayerEntity>> ValidateSequence(PlayerEntity model)
+        public Task<ProcessingRequest<PlayerEntity>> Validate(PlayerEntity entity)
         {
-            throw new NotImplementedException();
+            return ValidateSequence(entity);
         }
     }
 }

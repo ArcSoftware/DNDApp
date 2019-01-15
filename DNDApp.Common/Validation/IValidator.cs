@@ -5,6 +5,6 @@ namespace DNDApp.Common.Validation
 {
     public interface IValidator<TModel>
     {
-        Task<ProcessingRequest<TModel>> ValidateSequence(TModel model); 
+        Task<ProcessingRequest<TModel>> Validate(TModel item);
     }
 }

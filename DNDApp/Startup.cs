@@ -1,5 +1,4 @@
 ﻿using DNDApp.Common.Interfaces;
-using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
 using DNDApp.Data;
 using DNDApp.Data.Entities;
@@ -40,6 +39,8 @@ namespace DNDApp
                 options.UseSqlServer(Configuration.GetConnectionString("DNDAppDatabase")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Add Scoped DI
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IPlayerProcessor, PlayerProcessor>();
             services.AddScoped<IValidator<PlayerEntity>, CreatePlayerValidator>();

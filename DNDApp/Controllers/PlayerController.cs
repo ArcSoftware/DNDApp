@@ -24,11 +24,13 @@ namespace DNDApp.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> AddPlayerAsync(Player model)
+        public IActionResult CreatePlayer(Player model)
         {
-            var request = await _processor.CreatePlayer(model);
+            if (model.Id.HasValue) return BadRequest("ID must be null.");
 
-            return Ok(request.Item);
+            var request = _processor.CreatePlayer(model);
+
+            return Ok(request);
         }
     }
 }

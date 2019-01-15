@@ -30,7 +30,8 @@ namespace DNDApp.Data.Repository
 
         public void Create<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update<T>(T entity) where T : class

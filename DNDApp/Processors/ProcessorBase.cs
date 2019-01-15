@@ -17,13 +17,9 @@ namespace DNDApp.Processors
             _repo = repo;
         }
 
-//        public abstract ProcessingRequest<TModel> GetById(int id);
-
-//        public abstract Task<ProcessingRequest<TModel>> Process(TModel model);
-
         protected virtual async Task<ProcessingRequest<TModel>> ProcessCreate(TModel model)
         {
-            var processingRequest = await _validator.ValidateSequence(model);
+            var processingRequest = await _validator.Validate(model);
             if (processingRequest.IsValid)
             {
                 _repo.Create(model);

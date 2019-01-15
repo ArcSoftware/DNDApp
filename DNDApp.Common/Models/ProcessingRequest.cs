@@ -7,6 +7,7 @@ namespace DNDApp.Common.Models
     {
         public ProcessingRequest()
         {
+            Messages = new List<ProcessingMessageModel>();
         }
 
         public bool IsValid { get; set; }
@@ -15,9 +16,9 @@ namespace DNDApp.Common.Models
 
         public List<ProcessingMessageModel> Messages { get; set; }
 
-        public void AddValidationErrorMessage(string message)
+        public void AddValidationMessage(string message, ProcessingMessageType type)
         {
-            Messages.Add(new ProcessingMessageModel(message, ProcessingMessageType.ValidationError));
+            Messages.Add(new ProcessingMessageModel(message, type));
         }
     }
 }

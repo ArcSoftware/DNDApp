@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DNDApp.Common.Enums;
 using DNDApp.Common.Models;
 
 namespace DNDApp.Common.Validation
@@ -18,6 +19,15 @@ namespace DNDApp.Common.Validation
             {
                 await v.ValidateAsync(request);
             }
+
+            if (request.Messages != null)
+            {
+                foreach (var message in request.Messages)
+                {
+                    request.IsValid = (message.Type != ProcessingMessageType.ValidationError);
+                }
+            }
+            else request.IsValid = true;           
 
             return request;
         }

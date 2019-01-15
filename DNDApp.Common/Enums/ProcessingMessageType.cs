@@ -3,6 +3,7 @@
     public enum ProcessingMessageType
     {
         ValidationError,
+        ValidationWarning,
         ProcessingError,
         ProcessingWarning,
         ProcessingInformation

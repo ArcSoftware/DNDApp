@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using DNDApp.Common.Interfaces;
+﻿using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
 using DNDApp.Data.Entities;
@@ -31,10 +29,18 @@ namespace DNDApp.Processors
             return _request;
         }
 
-        public async Task<ProcessingRequest<Player>> CreatePlayer(Player player)
+        public ProcessingRequest<Player> CreatePlayer(Player player)
         {
             var playerEntity = PlayerToPlayerEntity(player);
-            _request.Item = PlayerEntityToPlayer(ProcessCreate(playerEntity).Result.Item);
+            var playerEntityRO = ProcessCreate(playerEntity).Result;
+
+            _request = new ProcessingRequest<Player>()
+            {
+                IsValid = playerEntityRO.IsValid,
+                Item = PlayerEntityToPlayer(playerEntityRO.Item),
+                Messages = playerEntityRO.Messages
+            };
+
             return _request;
         }
 
