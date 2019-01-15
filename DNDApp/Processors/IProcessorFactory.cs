@@ -2,7 +2,7 @@
 {
     public interface IProcessorFactory
     {
-        ProcessorBase<TModel> GetProcessor<TModel>(TModel model)
+        ProcessorBase<TModel> GetProcessor<TModel>()
             where TModel : class;
     }
 }

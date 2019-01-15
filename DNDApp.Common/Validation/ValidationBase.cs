@@ -3,8 +3,8 @@ using DNDApp.Common.Models;
 
 namespace DNDApp.Common.Validation
 {
-    public abstract class ValidationBase<TModelType>
+    public abstract class ValidationBase<TModel>
     {
-        public abstract Task ValidateAsync(ProcessingRequest<TModelType> request);
+        public abstract Task ValidateAsync(ProcessingRequest<TModel> request);
     }
 }

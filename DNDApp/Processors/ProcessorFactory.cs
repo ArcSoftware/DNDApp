@@ -25,7 +25,7 @@ namespace DNDApp.Processors
             _processorValidatorDictionary = processorValidatorDictionary;
         }
 
-        public ProcessorBase<TModel> GetProcessor<TModel>(TModel model) where TModel : class
+        public ProcessorBase<TModel> GetProcessor<TModel>() where TModel : class
         {
             var processorType = _processorDictionary[typeof(TModel)];
             var validatorType = _processorValidatorDictionary[processorType];

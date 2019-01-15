@@ -3,13 +3,13 @@ using DNDApp.Common.Models;
 
 namespace DNDApp.Common.Validation
 {
-    public abstract class ValidatorBase<T>
+    public abstract class ValidatorBase<TModel>
     {
-        protected ValidationBase<T>[] ValidationSequence;
+        protected ValidationBase<TModel>[] ValidationSequence;
 
-        protected virtual async Task<ProcessingRequest<T>> ValidateSequence(T item)
+        protected virtual async Task<ProcessingRequest<TModel>> ValidateSequence(TModel item)
         {
-            var request = new ProcessingRequest<T>
+            var request = new ProcessingRequest<TModel>
             {
                 Item = item
             };

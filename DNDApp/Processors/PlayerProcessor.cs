@@ -7,62 +7,57 @@ using DNDApp.Data.Entities;
 
 namespace DNDApp.Processors
 {
-    public class PlayerProcessor : ProcessorBase<Player>
+    public class PlayerProcessor : ProcessorBase<PlayerEntity>, IPlayerProcessor
     {
         private readonly IRepository _repo;
-        private PlayerEntity _dbo = null;
         private ProcessingRequest<Player> _request = new ProcessingRequest<Player>();
 
-        public PlayerProcessor(IValidator<Player> validator, IRepository repo) : base(validator, repo)
+        public PlayerProcessor(IValidator<PlayerEntity> validator, IRepository repo) : base(validator, repo)
         {
             _repo = repo;
         }
 
-        public Player GetPlayerById(int id)
+        public ProcessingRequest<Player> GetById(int id)
         {
-            _dbo = _repo.GetItem<PlayerEntity>(p => p.PlayerId == id);
+            var player = PlayerEntityToPlayer(_repo.GetItem<PlayerEntity>(p => p.PlayerId == id));
 
-            return GetPlayerInfo(); 
-        }
+            //Get Player Campaigns
+            //var playerCampaigns = _repo.GetItems<PlayerCampaignEntity>(p => p.PlayerId == player.Id);
+            //player.PlayerCampaignIds = playerCampaigns.Select(campaign => _repo.GetItems<CampaignEntity>(
+            //c => c.CampaignId == campaign.CampaignId).FirstOrDefault().CampaignId);
 
-        public Player GetByPlayerName(string name)
-        {
-            _dbo = _repo.GetItem<PlayerEntity>(p => p.PlayerName == name);
-
-            return GetPlayerInfo(); 
-        }
-
-        public override ProcessingRequest<Player> GetById(Player model)
-        {
-            _dbo = _repo.GetItem<PlayerEntity>(p => p.PlayerId == model.Id);
-            _request.Item = GetPlayerInfo();
+            _request.Item = player;
 
             return _request;
         }
 
-        public Task<ProcessingRequest<Player>> CreatePlayer(Player player)
+        public async Task<ProcessingRequest<Player>> CreatePlayer(Player player)
         {
-            return ProcessCreate(player); 
+            var playerEntity = PlayerToPlayerEntity(player);
+            _request.Item = PlayerEntityToPlayer(ProcessCreate(playerEntity).Result.Item);
+            return _request;
         }
 
-        private Player GetPlayerInfo()
+        private PlayerEntity PlayerToPlayerEntity(Player player)
         {
-            
-
-            var player = new Player()
+            var playerEntity = new PlayerEntity()
             {
-                Name = _dbo.PlayerName,
-                Id = _dbo.PlayerId
+                PlayerId = player.Id,
+                PlayerName = player.Name
             };
 
-//            //Get Player Campaigns
-//            var playerCampaigns = _repo.GetItems<PlayerCampaignEntity>(p => p.PlayerId == player.Id);
-//            player.PlayerCampaigns = playerCampaigns.Select(campaign => _repo.GetItems<CampaignEntity>(
-//                c => c.CampaignId == campaign.CampaignId).FirstOrDefault());
+            return playerEntity;
+        }
+
+        private Player PlayerEntityToPlayer(PlayerEntity playerEntity)
+        {
+            var player = new Player()
+            {
+                Id = playerEntity.PlayerId,
+                Name = playerEntity.PlayerName
+            };
 
             return player;
         }
-
-
     }
 }

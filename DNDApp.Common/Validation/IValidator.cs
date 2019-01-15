@@ -3,8 +3,8 @@ using DNDApp.Common.Models;
 
 namespace DNDApp.Common.Validation
 {
-    public interface IValidator<TModelType>
+    public interface IValidator<TModel>
     {
-        Task<ProcessingRequest<TModelType>> ValidateSequence(TModelType model); 
+        Task<ProcessingRequest<TModel>> ValidateSequence(TModel model); 
     }
 }
