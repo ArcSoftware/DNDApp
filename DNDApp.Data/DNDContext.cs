@@ -1,5 +1,4 @@
-﻿using DNDApp.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DNDApp.Data
 {
@@ -10,8 +9,8 @@ namespace DNDApp.Data
         }
 
         //Register DB Models here
-        public DbSet<PlayerEntity> Player { get; set; } 
-        public DbSet<CampaignEntity> Campaign { get; set; }
-
+        public virtual DbSet<CampaignEntity> Campaign { get; set; }
+        public virtual DbSet<PlayerEntity> Player { get; set; }
+        public virtual DbSet<PlayerCampaignEntity> PlayerCampaign { get; set; }
     }
 }

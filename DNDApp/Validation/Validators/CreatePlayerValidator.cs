@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
-using DNDApp.Data.Entities;
 using DNDApp.Validation.Validations;
 
 namespace DNDApp.Validation.Validators

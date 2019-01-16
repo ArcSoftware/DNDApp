@@ -20,7 +20,7 @@ namespace DNDApp.Common.Validation
                 await v.ValidateAsync(request);
             }
 
-            if (request.Messages != null)
+            if (request.Messages.Count > 0)
             {
                 foreach (var message in request.Messages)
                 {

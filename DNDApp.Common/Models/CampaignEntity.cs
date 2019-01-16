@@ -2,9 +2,9 @@
 
 namespace DNDApp.Common.Models
 {
-    public class Campaign
+    public class CampaignEntity
     {
-        public Campaign()
+        public CampaignEntity()
         {
         }
 

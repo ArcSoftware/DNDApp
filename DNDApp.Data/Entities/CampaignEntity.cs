@@ -1,11 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace DNDApp.Data.Entities
+namespace DNDApp
 {
-    public class CampaignEntity
+    public partial class CampaignEntity
     {
+        public CampaignEntity()
+        {
+            PlayerCampaign = new HashSet<PlayerCampaignEntity>();
+        }
+
         [Key]
         public int CampaignId { get; set; }
         public string CampaignName { get; set; }
+
+        public ICollection<PlayerCampaignEntity> PlayerCampaign { get; set; }
     }
 }

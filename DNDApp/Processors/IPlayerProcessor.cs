@@ -1,5 +1,4 @@
 ﻿using DNDApp.Common.Models;
-using DNDApp.Data.Entities;
 
 namespace DNDApp.Processors
 {

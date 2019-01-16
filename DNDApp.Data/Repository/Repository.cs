@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using DNDApp.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DNDApp.Data.Repository
 {
@@ -16,13 +17,29 @@ namespace DNDApp.Data.Repository
 
         public T GetItem<T>(Expression<Func<T, bool>> predicate = null) where T : class
         {
-            return GetItems(predicate).FirstOrDefault();
+            var response = GetItems(predicate);
+
+            return response?.FirstOrDefault(); 
         }
 
         public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             IQueryable<T> query = _context.Set<T>();
 
+            var results = query.Where(predicate);
+
+            return results;
+        }
+
+        public IEnumerable<T> GetItemsWithInclude<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] include) 
+            where T : class
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var expression in include)
+            {
+                query.Include(expression);
+            }
             var results = query.Where(predicate);
 
             return results;

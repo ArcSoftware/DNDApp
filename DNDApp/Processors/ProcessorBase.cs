@@ -22,7 +22,7 @@ namespace DNDApp.Processors
             var processingRequest = await _validator.Validate(model);
             if (processingRequest.IsValid)
             {
-                _repo.Create(processingRequest.Item);
+                _repo.Create(model);
             }
 
             return processingRequest;

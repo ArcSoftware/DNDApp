@@ -1,8 +1,7 @@
-﻿using DNDApp.Common.Interfaces;
+﻿using System.Linq;
+using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
-using DNDApp.Data.Entities;
-
 namespace DNDApp.Processors
 {
     public class PlayerProcessor : ProcessorBase<PlayerEntity>, IPlayerProcessor
@@ -17,14 +16,18 @@ namespace DNDApp.Processors
 
         public ProcessingRequest<Player> GetById(int id)
         {
-            var player = PlayerEntityToPlayer(_repo.GetItem<PlayerEntity>(p => p.PlayerId == id));
+            //var player = PlayerEntityToPlayer(_repo.GetItem<PlayerEntity>(p => p.PlayerId == id));
 
             //Get Player Campaigns
-            //var playerCampaigns = _repo.GetItems<PlayerCampaignEntity>(p => p.PlayerId == player.Id);
-            //player.PlayerCampaignIds = playerCampaigns.Select(campaign => _repo.GetItems<CampaignEntity>(
-            //c => c.CampaignId == campaign.CampaignId).FirstOrDefault().CampaignId);
+            var playerCampaigns = _repo.GetItemsWithInclude<PlayerCampaignEntity>
+                (p => p.PlayerId == id, i => i.Campaign, i => i.Player);
 
-            _request.Item = player;
+            foreach (var campaign in playerCampaigns)
+            {
+                //player.PlayerCampaignIds.Append(campaign.CampaignId); 
+            }
+
+            //_request.Item = player;
 
             return _request;
         }

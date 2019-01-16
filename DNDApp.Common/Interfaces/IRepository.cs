@@ -10,6 +10,10 @@ namespace DNDApp.Common.Interfaces
 
         IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate = null) where T : class;
 
+        IEnumerable<T> GetItemsWithInclude<T>(Expression<Func<T, bool>> predicate,
+            params Expression<Func<T, object>>[] include)
+            where T : class;
+
         void Create<T>(T entity) where T : class;
 
         void Update<T>(T entity) where T : class;
