@@ -1,4 +1,10 @@
-﻿using DNDApp.Data;
+﻿using DNDApp.Common.Interfaces;
+using DNDApp.Common.Validation;
+using DNDApp.Data;
+using DNDApp.Data.Entities;
+using DNDApp.Data.Repository;
+using DNDApp.Processors;
+using DNDApp.Validation.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +39,12 @@ namespace DNDApp
                 options.UseSqlServer(Configuration.GetConnectionString("DNDAppDatabase")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Add Scoped DI
+            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IPlayerProcessor, PlayerProcessor>();
+            services.AddScoped<IValidator<PlayerEntity>, CreatePlayerValidator>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "DNDApp API", Version = "v1" });
