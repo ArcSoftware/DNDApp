@@ -1,6 +1,7 @@
 ﻿using DNDApp.Common.Interfaces;
 using DNDApp.Common.Validation;
 using DNDApp.Data;
+using DNDApp.Data.Entities;
 using DNDApp.Data.Repository;
 using DNDApp.Processors;
 using DNDApp.Validation.Validators;

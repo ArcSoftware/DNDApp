@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DNDApp.Common.Models;
+﻿using DNDApp.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using DNDApp.Processors;
 
@@ -20,7 +19,7 @@ namespace DNDApp.Controllers
         {
             var request = _processor.GetById(id);
 
-            return Ok(request.Item);
+            return Ok(request);
         }
 
         [HttpPost("[action]")]

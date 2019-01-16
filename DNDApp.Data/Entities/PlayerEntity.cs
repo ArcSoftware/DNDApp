@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DNDApp
+namespace DNDApp.Data.Entities
 {
-    public partial class PlayerEntity
+    public class PlayerEntity
     {
         public PlayerEntity()
         {

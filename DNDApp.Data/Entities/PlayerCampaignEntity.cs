@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DNDApp
+namespace DNDApp.Data.Entities
 {
-    public partial class PlayerCampaignEntity
+    public class PlayerCampaignEntity
     {
         [Key]
         public int? Id { get; set; }

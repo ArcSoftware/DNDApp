@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DNDApp.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DNDApp.Data
 {

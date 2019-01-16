@@ -15,34 +15,24 @@ namespace DNDApp.Data.Repository
             _context = dndContext;
         }
 
-        public T GetItem<T>(Expression<Func<T, bool>> predicate = null) where T : class
-        {
-            var response = GetItems(predicate);
-
-            return response?.FirstOrDefault(); 
-        }
-
-        public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
-        {
-            IQueryable<T> query = _context.Set<T>();
-
-            var results = query.Where(predicate);
-
-            return results;
-        }
-
-        public IEnumerable<T> GetItemsWithInclude<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] include) 
+        public T GetItem<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] include)
             where T : class
         {
             IQueryable<T> query = _context.Set<T>();
 
-            foreach (var expression in include)
-            {
-                query.Include(expression);
-            }
-            var results = query.Where(predicate);
+            query = include.Aggregate(query, (current, expression) => current.Include(expression));
 
-            return results;
+            return query?.FirstOrDefault(predicate);
+        }
+
+        public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] include)
+            where T : class
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            query = include.Aggregate(query, (current, expression) => current.Include(expression));
+
+            return query?.Where(predicate);
         }
 
         public void Create<T>(T entity) where T : class

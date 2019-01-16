@@ -6,9 +6,9 @@ namespace DNDApp.Common.Models
     {
         public Player()
         {
+            PlayerCampaignIds = new List<int>();
         }
 
         public IEnumerable<int> PlayerCampaignIds { get; set; }
-//        public IEnumerable<Charactors> Charactors { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using DNDApp.Common.Enums;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
+using DNDApp.Data.Entities;
 
 namespace DNDApp.Validation.Validations
 {

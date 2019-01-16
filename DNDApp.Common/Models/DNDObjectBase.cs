@@ -1,6 +1,4 @@
-﻿using DNDApp.Common.Enums;
-
-namespace DNDApp.Common.Models
+﻿namespace DNDApp.Common.Models
 {
     public class DNDObjectBase
     {
