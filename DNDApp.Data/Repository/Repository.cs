@@ -1,20 +1,44 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using DNDApp.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DNDApp.Data.Repository
 {
-    public abstract class Repository : IRepository
+    public class Repository : IRepository
     {
-        public IEnumerable GetItems<T>(Expression<Func<T, bool>> predicate) where T : class
+        private readonly DNDContext _context; 
+        public Repository(DNDContext dndContext)
         {
-            throw new NotImplementedException();
+            _context = dndContext;
         }
 
-        public void Add<T>(T entity) where T : class
+        public T GetItem<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] include)
+            where T : class
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>();
+
+            query = include.Aggregate(query, (current, expression) => current.Include(expression));
+
+            return query?.FirstOrDefault(predicate);
+        }
+
+        public IEnumerable<T> GetItems<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] include)
+            where T : class
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            query = include.Aggregate(query, (current, expression) => current.Include(expression));
+
+            return query?.Where(predicate);
+        }
+
+        public void Create<T>(T entity) where T : class
+        {
+            _context.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update<T>(T entity) where T : class
