@@ -18,7 +18,8 @@ namespace DNDApp.Processors
 
         public Player GetById(int id)
         {
-            return PlayerEntityToPlayer(_repo.GetItem<PlayerEntity>(p => p.PlayerId == id, i => i.PlayerCampaign));
+            return PlayerEntityToPlayer(_repo.GetItem<PlayerEntity>(
+                p => p.PlayerId == id, i => i.PlayerCampaign));
         }
 
         public ProcessingRequest<Player> CreatePlayer(Player player)
