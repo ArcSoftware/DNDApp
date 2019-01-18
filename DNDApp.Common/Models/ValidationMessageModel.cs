@@ -2,15 +2,15 @@
 
 namespace DNDApp.Common.Models
 {
-    public class ProcessingMessageModel
+    public class ValidationMessageModel
     {
-        public ProcessingMessageModel(string message, ProcessingMessageType type)
+        public ValidationMessageModel(string message, ValidationMessageType type)
         {
             Message = message;
             Type = type;
         }
 
         public string Message { get; }
-        public ProcessingMessageType Type { get; }
+        public ValidationMessageType Type { get; }
     }
 }

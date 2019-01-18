@@ -3,6 +3,7 @@ using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
 using DNDApp.Data.Entities;
+using DNDApp.Validation.Validators;
 
 namespace DNDApp.Processors
 {
@@ -10,7 +11,7 @@ namespace DNDApp.Processors
     {
         private readonly IRepository _repo;
 
-        public CampaignProcessor(IValidator<CampaignEntity> validator, IRepository repo) 
+        public CampaignProcessor(ISingleEntityValidator<CampaignEntity> validator, IRepository repo) 
             : base(validator, repo)
         {
             _repo = repo;
@@ -19,30 +20,36 @@ namespace DNDApp.Processors
         public Campaign GetById(int id)
         {
             return CampaignEntityToCampaign(_repo.GetItem<CampaignEntity>(
-                c => c.CampaignId == id, i => i.PlayerCampaign));
+                c => c.Id == id, i => i.PlayerCampaign));
         }
 
         public Campaign CreateCampaign(Campaign campaign)
         {
-            return CampaignEntityToCampaign(ProcessCreate(CampaignToCampaignEntity(campaign)).Result.Item); 
+            return CampaignEntityToCampaign(ProcessCreate(CampaignToCampaignEntity(campaign)).Result); 
         }
 
-        private CampaignEntity CampaignToCampaignEntity(Campaign campaign)
+        public PlayerCampaignEntity AddPlayerToCampaign(Campaign campaign, Player player)
+        {
+            var joinValidator = new JoinM2MValidator<CampaignEntity, PlayerEntity, PlayerCampaignEntity>(_repo);
+            return Join(joinValidator, CampaignToCampaignEntity(campaign), new PlayerEntity {Id = player.Id}).Result;
+        }
+
+        public static CampaignEntity CampaignToCampaignEntity(Campaign campaign)
         {
             var campaignEntity = new CampaignEntity()
             {
-                CampaignId = campaign.Id,
+                Id = campaign.Id,
                 CampaignName = campaign.Name,
             };
 
             return campaignEntity;
         }
 
-        private Campaign CampaignEntityToCampaign(CampaignEntity campaignEntity)
+        public static Campaign CampaignEntityToCampaign(CampaignEntity campaignEntity)
         {
             var campaign = new Campaign()
             {
-                Id = campaignEntity.CampaignId,
+                Id = campaignEntity.Id,
                 Name = campaignEntity.CampaignName,
                 CampaignPlayersIds = campaignEntity.PlayerCampaign.Select(cp => cp.CampaignId)
             };

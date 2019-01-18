@@ -2,10 +2,8 @@
 
 namespace DNDApp.Data.Entities
 {
-    public class PlayerCampaignEntity
+    public class PlayerCampaignEntity : EntityBase
     {
-        [Key]
-        public int? Id { get; set; }
         public int PlayerId { get; set; }
         public int CampaignId { get; set; }
 

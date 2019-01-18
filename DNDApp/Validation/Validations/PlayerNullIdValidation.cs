@@ -13,14 +13,14 @@ namespace DNDApp.Validation.Validations
         {
         }
 
-        public override async Task ValidateAsync(ProcessingRequest<TModel> request)
+        public override async Task ValidateAsync(ValidationRequest<TModel> request)
         {
-            if (request.Item.PlayerId != null)
-            {
-                await Task.Run(() => request.AddValidationMessage(
-                    $"Requested objects to create must have null Ids.",
-                    ProcessingMessageType.ValidationError));
-            }
+//            if (request.FirstItem.Id != null)
+//            {
+//                await Task.Run(() => request.AddValidationMessage(
+//                    $"Requested objects to create must have null Ids.",
+//                    ValidationMessageType.ValidationError));
+//            }
         }
     }
 }

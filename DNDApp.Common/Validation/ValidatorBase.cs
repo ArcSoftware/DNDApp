@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DNDApp.Common.Enums;
 using DNDApp.Common.Models;
 
@@ -8,11 +9,11 @@ namespace DNDApp.Common.Validation
     {
         protected ValidationBase<TModel>[] ValidationSequence;
 
-        protected virtual async Task<ProcessingRequest<TModel>> ValidateSequence(TModel item)
+        protected virtual async Task<ValidationRequest<TModel>> ValidateSequence(IEnumerable<TModel> items)
         {
-            var request = new ProcessingRequest<TModel>
+            var request = new ValidationRequest<TModel>
             {
-                Item = item
+                Items = items
             };
 
             foreach (var v in ValidationSequence)
@@ -24,7 +25,7 @@ namespace DNDApp.Common.Validation
             {
                 foreach (var message in request.Messages)
                 {
-                    request.IsValid = (message.Type != ProcessingMessageType.ValidationError);
+                    request.IsValid = (message.Type != ValidationMessageType.ValidationError);
                 }
             }
             else request.IsValid = true;           

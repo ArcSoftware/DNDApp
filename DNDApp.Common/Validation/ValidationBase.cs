@@ -5,6 +5,6 @@ namespace DNDApp.Common.Validation
 {
     public abstract class ValidationBase<TModel>
     {
-        public abstract Task ValidateAsync(ProcessingRequest<TModel> request);
+        public abstract Task ValidateAsync(ValidationRequest<TModel> request);
     }
 }

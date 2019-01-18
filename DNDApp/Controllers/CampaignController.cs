@@ -31,5 +31,15 @@ namespace DNDApp.Controllers
 
             return Ok(request);
         }
+
+        [HttpPost("[action]")]
+        public IActionResult AddPlayerToCampaign(int campaignId, int playerId)
+        {
+            var request = _processor.AddPlayerToCampaign(
+                new Campaign(){Id = campaignId}, 
+                new Player(){Id = playerId});
+
+            return Ok(request);
+        }
     }
 }

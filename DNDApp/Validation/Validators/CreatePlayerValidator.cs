@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
@@ -7,7 +8,7 @@ using DNDApp.Validation.Validations;
 
 namespace DNDApp.Validation.Validators
 {
-    public class CreatePlayerValidator : ValidatorBase<PlayerEntity>, IValidator<PlayerEntity>
+    public class CreatePlayerValidator : ValidatorBase<PlayerEntity>, ISingleEntityValidator<PlayerEntity>
     {
         private readonly IRepository _repo; 
 
@@ -20,9 +21,9 @@ namespace DNDApp.Validation.Validators
             };
         }
 
-        public Task<ProcessingRequest<PlayerEntity>> Validate(PlayerEntity entity)
+        public Task<ValidationRequest<PlayerEntity>> Validate(IEnumerable<PlayerEntity> items)
         {
-            return ValidateSequence(entity);
+            return ValidateSequence(items);
         }
     }
 }

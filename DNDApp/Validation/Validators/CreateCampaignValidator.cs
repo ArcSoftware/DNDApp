@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DNDApp.Common.Interfaces;
 using DNDApp.Common.Models;
 using DNDApp.Common.Validation;
@@ -6,7 +7,7 @@ using DNDApp.Data.Entities;
 
 namespace DNDApp.Validation.Validators
 {
-    public class CreateCampaignValidator : ValidatorBase<CampaignEntity>, IValidator<CampaignEntity>
+    public class CreateCampaignValidator : ValidatorBase<CampaignEntity>, ISingleEntityValidator<CampaignEntity>
     {
         private readonly IRepository _repo;
 
@@ -19,9 +20,9 @@ namespace DNDApp.Validation.Validators
             };
         }
 
-        public Task<ProcessingRequest<CampaignEntity>> Validate(CampaignEntity entity)
+        public Task<ValidationRequest<CampaignEntity>> Validate(IEnumerable<CampaignEntity> items)
         {
-            return ValidateSequence(entity);
+            return ValidateSequence(items);
         }
     }
 }

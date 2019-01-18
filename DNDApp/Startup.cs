@@ -44,8 +44,8 @@ namespace DNDApp
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IPlayerProcessor, PlayerProcessor>();
             services.AddScoped<ICampaignProcessor, CampaignProcessor>();
-            services.AddScoped<IValidator<PlayerEntity>, CreatePlayerValidator>();
-            services.AddScoped<IValidator<CampaignEntity>, CreateCampaignValidator>();
+            services.AddScoped<ISingleEntityValidator<PlayerEntity>, CreatePlayerValidator>();
+            services.AddScoped<ISingleEntityValidator<CampaignEntity>, CreateCampaignValidator>();
 
             services.AddSwaggerGen(c =>
             {
