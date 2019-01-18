@@ -1,4 +1,5 @@
-﻿using DNDApp.Processors;
+﻿using DNDApp.Common.Models;
+using DNDApp.Processors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DNDApp.Controllers
@@ -21,14 +22,14 @@ namespace DNDApp.Controllers
             return Ok(request);
         }
 
-//        [HttpPost("[action]")]
-//        public IActionResult CreatePlayer(Campaign model)
-//        {
-//            if (model.Id.HasValue) return BadRequest("ID must be null.");
-//
-//            var request = _processor.CreatePlayer(model);
-//
-//            return Ok(request);
-        
+        [HttpPost("[action]")]
+        public IActionResult CreateCampaign(Campaign model)
+        {
+            if (model.Id.HasValue) return BadRequest("ID must be null.");
+
+            var request = _processor.CreateCampaign(model);
+
+            return Ok(request);
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace DNDApp.Data.Entities
         }
 
         [Key]
-        public int CampaignId { get; set; }
+        public int? CampaignId { get; set; }
         public string CampaignName { get; set; }
 
         public ICollection<PlayerCampaignEntity> PlayerCampaign { get; set; }

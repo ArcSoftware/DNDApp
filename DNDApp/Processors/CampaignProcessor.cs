@@ -22,6 +22,22 @@ namespace DNDApp.Processors
                 c => c.CampaignId == id, i => i.PlayerCampaign));
         }
 
+        public Campaign CreateCampaign(Campaign campaign)
+        {
+            return CampaignEntityToCampaign(ProcessCreate(CampaignToCampaignEntity(campaign)).Result.Item); 
+        }
+
+        private CampaignEntity CampaignToCampaignEntity(Campaign campaign)
+        {
+            var campaignEntity = new CampaignEntity()
+            {
+                CampaignId = campaign.Id,
+                CampaignName = campaign.Name,
+            };
+
+            return campaignEntity;
+        }
+
         private Campaign CampaignEntityToCampaign(CampaignEntity campaignEntity)
         {
             var campaign = new Campaign()
